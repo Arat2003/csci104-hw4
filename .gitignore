@@ -70,7 +70,7 @@ ehthumbs_vista.db
 # C++
 *.o
 hw4_checkpoint/
-hw4_tests/
+hw4_tests/*
 equal-paths-test
 bst-test
 
