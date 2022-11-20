@@ -281,7 +281,7 @@ template<class Key, class Value>
 BinarySearchTree<Key, Value>::iterator::iterator() 
 {
     // TODO
-    current_ = nullptr;
+    current_ = NULL;
 }
 
 /**
@@ -544,78 +544,33 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
     }
 
     // 1 child
-    // left
-    // if((toRemove->getRight() == nullptr && toRemove->getLeft() != nullptr) || (toRemove->getRight() != nullptr && toRemove->getLeft() == nullptr)) {
-    //     Node<Key, Value>* child;
-    //     bool isRightChild = false;
+    if((toRemove->getRight() == NULL && toRemove->getLeft() != NULL) || (toRemove->getRight() != NULL && toRemove->getLeft() == NULL)) {
+        Node<Key, Value>* child;
 
-    //     if(toRemove->getRight() != nullptr) {
-    //         child = toRemove->getRight();
-    //         isRightChild = true;
-    //     }
-    //     else child = toRemove->getLeft();
+        if(toRemove->getRight() != NULL) child = toRemove->getRight();
+        else child = toRemove->getLeft();
 
-    //     if(toRemove == root_) {
-    //         delete toRemove;
-    //         root_ = child;
-    //         child->setParent(nullptr);
-    //         return;
-    //     }
-    //     else {
-    //         nodeSwap(toRemove, child);
-    //         if(isRightChild) child->setRight(nullptr);
-    //         else child->setLeft(nullptr);
-    //         delete toRemove;
-    //         return;
-    //     }
-    // }
-    if(toRemove->getRight() == NULL && toRemove->getLeft() != NULL) {
-        Node<Key, Value>* leftChild = toRemove->getLeft();
         if(toRemove == root_) {
-            root_ = leftChild;
-            leftChild->setParent(NULL);
+            root_ = child;
+            child->setParent(NULL);
             delete toRemove;
             return;
         }
         else {
             if(toRemoveParent->getRight() == toRemove) {
-               // nodeSwap(toRemove, leftChild);
-                toRemoveParent->setRight(leftChild);
-                leftChild->setParent(toRemoveParent);
-                delete toRemove;
-                return; 
-            } else {
-                // nodeSwap(toRemove, leftChild);
-                toRemoveParent->setLeft(leftChild);
-                leftChild->setParent(toRemoveParent);
-                delete toRemove;
-                return;
-            }
-        }
-    }
-
-    // right
-    if(toRemove->getRight() != NULL && toRemove->getLeft() == NULL) {
-        Node<Key, Value>* rightChild = toRemove->getRight();
-        // std::cout << "rightchild's key (should be 3): " << rightChild->getKey() << std::endl;
-        if(toRemove == root_) {
-            rightChild->setParent(NULL);
-            delete root_;
-            root_ = rightChild;
-            // print();
-            return;
-        }
-        else {
-            if(toRemoveParent->getRight() == toRemove) {
-                // nodeSwap(toRemove, rightChild);
-                toRemoveParent->setRight(rightChild);
-                rightChild->setParent(toRemoveParent);
+                // nodeSwap(toRemove, child);
+                toRemoveParent->setRight(child);
+                // if(isRightChild) child->setRight(nullptr);
+                // else child->setLeft(nullptr);
+                child->setParent(toRemoveParent);
                 delete toRemove;
                 return;
             } else {
-                // nodeSwap(toRemove, rightChild);
-                toRemoveParent->setLeft(rightChild);
-                rightChild->setParent(toRemoveParent);
+                // nodeSwap(toRemove, child);
+                toRemoveParent->setLeft(child);
+                // if(isRightChild) child->setRight(nullptr);
+                // else child->setLeft(nullptr);
+                child->setParent(toRemoveParent);
                 delete toRemove;
                 return;
             }
